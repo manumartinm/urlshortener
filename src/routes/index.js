@@ -4,7 +4,8 @@ const router = express.Router()
 
 const controllers = require('../controllers')
 
-router.get('/api/redirect/:code', controllers.redirectURL)
-router.post('/api/shorten', controllers.createShortURL)
+router.get('/', controllers.home)
+router.get('/:code', controllers.redirectURL)
+router.post('/shorten', controllers.createShortURL)
 
 module.exports = router

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "dev": "webpack-dev-server --open --config webpack.dev.js",
+    "dev": "nodemon app.js",
     "lint": "eslint .  --ext js",
     "lint-fix": "eslint . --ext js --fix",
     "tailwindcss": "postcss public/styles/tailwind.css -o public/styles/style.css"
@@ -47,7 +47,7 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.1",
-    "prettier": "^2.3.2",
-    "webpack-dev-server": "^4.0.0"
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.2"
   }
 }

@@ -15,5 +15,4 @@ module.exports = {
     semi: ['error', 'never'],
     'max-len': ['error', { code: 120, ignoreUrls: true }],
   },
-  "parser": "babel-eslint"
 }
