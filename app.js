@@ -1,11 +1,13 @@
 const express = require('express')
+const path = require('path')
+
 const app = express()
 const PORT = process.env.PORT || 3000
 
 const router = require('./src/routes')
 
 app.set('view engine', 'ejs')
-app.set('views', 'views')
+app.set('views', 'src/views')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
