@@ -18,7 +18,6 @@ jobs:
           access_token: ${{ github.token }}
 
   tailwind:
-    needs: prisma
     runs-on: ubuntu-20.04
     steps:
       - name: Check out repository code
@@ -33,7 +32,6 @@ jobs:
         run: npm run tailwindcss
 
   linter:
-    needs: prisma
     runs-on: ubuntu-20.04
     steps:
       - name: Check out repository code
