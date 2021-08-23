@@ -8,9 +8,9 @@ const redirectURL = async (req, res) => {
   try {
     const url = await prisma.url.findUnique({ where: { urlCode: req.params.code } })
     if (url) return res.redirect(url.longUrl)
-    return res.status(404).json('No URL Found')
+    return res.status(404).json('Ha ocurrido un error')
   } catch (err) {
-    return res.status(500).json('Server Error')
+    return res.status(404).json('Ha ocurrido un error')
   }
 }
 
@@ -18,7 +18,7 @@ const createShortURL = async (req, res) => {
   const baseUrl = process.env.BASE_URL
   const { longUrl } = req.body
 
-  if (!validUrl.isUri(baseUrl)) return res.status(401).json('Invalid base URL')
+  if (!validUrl.isUri(baseUrl)) return res.status(403)
 
   const urlCode = shortid.generate()
 
@@ -41,10 +41,10 @@ const createShortURL = async (req, res) => {
 
       return res.json(url)
     } catch (err) {
-      return res.status(404).json('Server Error')
+      return res.status(401).json('Ha ocurrido un error')
     }
   } else {
-    return res.status(401).json('Invalid longUrl')
+    return res.status(402).json('La url es invalida')
   }
 }
 
@@ -52,4 +52,8 @@ const home = (req, res) => {
   res.render('index')
 }
 
-module.exports = { createShortURL, redirectURL, home }
+module.exports = {
+  createShortURL,
+  redirectURL,
+  home,
+}
