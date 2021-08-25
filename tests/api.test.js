@@ -1,6 +1,7 @@
 const shorten = 'http://localhost:3000/api/shorten'
 const fetch = require('node-fetch')
-const BASE_URL = process.env.BASE_URL || 'localhost:3000'
+const { BASE_URL } = process.env || 'localhost:3000'
+const { API_KEY } = process.env
 const shortURL = async (longUrl) => {
     try {      
         const req = await fetch(shorten, {
@@ -8,6 +9,7 @@ const shortURL = async (longUrl) => {
             body: JSON.stringify({ longUrl }),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': API_KEY
             },
         }).then(res => res.json())
     
