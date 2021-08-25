@@ -18,31 +18,31 @@ const shortURL = async (longUrl) => {
 }
 
 describe('Test api', () => {
-    it('Expected to return json with long Url property', async () => {
+    it('should return json with long Url property', async () => {
         const res = await shortURL('https://nike.com')
 
         expect(res).toHaveProperty('longUrl')
     })
 
-    it('Expected to throw error when parsing a url without https?', async () => {
+    it('should throw error when parsing a url without https?', async () => {
         const res = await shortURL('nike.com')
 
         expect(res).toEqual(expect.stringMatching('La url es invalida'))
     })
 
-    it('Expected to throw error when parsing a url without tld', async () => {
+    it('should throw an error when parsing a url without tld', async () => {
         const res = await shortURL('https://nike')
 
         expect(res).toEqual(expect.stringMatching('La url es invalida'))
     })
 
-    it('Expect url code to be valid', async () => {
+    it('url code must be valid', async () => {
         const res = await shortURL('https://nike.com')
 
         expect(res.urlCode).toMatch(new RegExp('[A-Za-z0-9]{9}'))
     })
 
-    it('Short Url domain be equal to website domain', async () => {
+    it('Url domain should be equal to website domain', async () => {
         const res = await shortURL('https://nike.com')
 
         const code = res.shortUrl.split('/')[0]
@@ -50,7 +50,7 @@ describe('Test api', () => {
         expect(code).toEqual(BASE_URL)
     })
 
-    it('Expected to throw error when not parsing api key', async () => {
+    it('should throw error when not parsing api key', async () => {
         const req = await fetch(shorten, {
             method: 'POST',
             body: JSON.stringify({longUrl: 'https://nike.com' }),
