@@ -1,5 +1,4 @@
 const { PrismaClient } = require('@prisma/client')
-const validUrl = require('valid-url')
 const shortid = require('shortid')
 
 const prisma = new PrismaClient()
