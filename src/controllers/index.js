@@ -17,12 +17,13 @@ const redirectURL = async (req, res) => {
 const createShortURL = async (req, res) => {
   const baseUrl = process.env.BASE_URL
   const { longUrl } = req.body
+  const regex = '(https?://(?:[[:alnum:]]+.)?[[:alnum:]]+.[A-Za-z]{3})(/\S*)'
 
-  if (!validUrl.isUri(baseUrl)) return res.status(403)
+  if (!baseUrl.match(regex)) return res.status(403)
 
   const urlCode = shortid.generate()
 
-  if (validUrl.isUri(longUrl)) {
+  if (baseUrl.match(regex)) {
     try {
       let url = await prisma.url.findFirst({ where: { longUrl: req.body.longUrl } })
 
@@ -41,10 +42,10 @@ const createShortURL = async (req, res) => {
 
       return res.json(url)
     } catch (err) {
-      return res.status(401).json('Ha ocurrido un error')
+      return res.status(404).json('Ha ocurrido un error')
     }
   } else {
-    return res.status(402).json('La url es invalida')
+    return res.status(404).json('La url es invalida')
   }
 }
 
