@@ -1,7 +1,6 @@
 const shorten = 'http://localhost:3000/api/shorten'
 const fetch = require('node-fetch')
 const { BASE_URL } = process.env || 'localhost:3000'
-const { API_KEY } = process.env
 const shortURL = async (longUrl) => {
     try {      
         const req = await fetch(shorten, {
@@ -9,7 +8,6 @@ const shortURL = async (longUrl) => {
             body: JSON.stringify({ longUrl }),
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': API_KEY
             },
         }).then(res => res.json())
     
@@ -40,6 +38,7 @@ describe('Test api', () => {
 
     it('url code must be valid', async () => {
         const res = await shortURL('https://nike.com')
+        console.log(res)
 
         expect(res.urlCode).toMatch(new RegExp('[A-Za-z0-9]{9}'))
     })
@@ -50,17 +49,5 @@ describe('Test api', () => {
         const code = res.shortUrl.split('/')[0]
 
         expect(code).toEqual(BASE_URL)
-    })
-
-    it('should throw error when not parsing api key', async () => {
-        const req = await fetch(shorten, {
-            method: 'POST',
-            body: JSON.stringify({longUrl: 'https://nike.com' }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }).then(res => res.json())
-
-        expect(req).toEqual(expect.stringMatching('No estas autorizado'))
     })
 })
