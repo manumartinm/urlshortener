@@ -10,6 +10,11 @@ const handler = async () => {
                 'Content-Type': 'application/json',
             },
         }).then((res) => res.json())
+
+        if (req.shortUrl === undefined) {
+            shortUrlParagraph.innerHTML = req
+            return
+        }
     
         shortUrlParagraph.innerHTML = req.shortUrl
 
