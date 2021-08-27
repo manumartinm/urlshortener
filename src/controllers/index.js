@@ -16,13 +16,10 @@ const redirectURL = async (req, res) => {
 const createShortURL = async (req, res) => {
   const baseUrl = process.env.BASE_URL
   const { longUrl } = req.body
-  const regex = '(https?://(?:[[:alnum:]]+.)?[[:alnum:]]+.[A-Za-z]{3})(/\S*)'
-
-  if (!baseUrl.match(regex)) return res.status(403)
-
+  const regex = new RegExp(/https?:\/\/(www\.)?[A-Za-z0-9]{1,50}\.[A-Za-z]+(\/)?\S.*/)
   const urlCode = shortid.generate()
 
-  if (baseUrl.match(regex)) {
+  if (regex.test(longUrl)) {
     try {
       let url = await prisma.url.findFirst({ where: { longUrl: req.body.longUrl } })
 

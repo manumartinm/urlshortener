@@ -1,6 +1,6 @@
 const shorten = 'http://localhost:3000/api/shorten'
 const fetch = require('node-fetch')
-const { BASE_URL } = process.env || 'localhost:3000'
+const BASE_URL = 'localhost:3000'
 const shortURL = async (longUrl) => {
     try {      
         const req = await fetch(shorten, {
